@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -35,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +90,37 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground scroll-smooth;
+  }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 50%, #F97316 100%);
+  }
+  
+  .floating-social {
+    @apply fixed left-4 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-50;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  
+  .btn-primary {
+    @apply bg-ecell-blue hover:bg-ecell-blue-dark text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105;
+  }
+  
+  .btn-secondary {
+    @apply bg-ecell-orange hover:bg-ecell-orange-dark text-white font-bold py-3 px-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105;
+  }
+  
+  .certificate-bg {
+    background-image: 
+      linear-gradient(135deg, rgba(30, 64, 175, 0.05) 0%, rgba(249, 115, 22, 0.05) 100%),
+      repeating-linear-gradient(45deg, rgba(30, 64, 175, 0.03) 0px, rgba(30, 64, 175, 0.03) 2px, transparent 2px, transparent 4px);
+    border: 2px solid #1E40AF;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 }
