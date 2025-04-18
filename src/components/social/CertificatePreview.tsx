@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
+import { downloadCertificate } from '@/utils/certificateUtils';
 
 interface CertificatePreviewProps {
   userName: string;

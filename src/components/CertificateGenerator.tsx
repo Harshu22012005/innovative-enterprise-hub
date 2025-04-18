@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Download, Award } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { generateCertificateData, simulateDownload } from '@/utils/certificateUtils';
+import { generateCertificateData, downloadCertificate } from '@/utils/certificateUtils';
 import { addActivityLog } from '@/utils/adminUtils';
 
 const CertificateGenerator = () => {
@@ -59,7 +59,7 @@ const CertificateGenerator = () => {
       description: "Your certificate is being prepared...",
     });
     
-    simulateDownload(
+    downloadCertificate(
       'attendance-certificate', 
       `InnovateXpo_Certificate_${name.replace(/\s+/g, '_')}`, 
       (success) => {

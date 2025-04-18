@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { addActivityLog } from '@/utils/adminUtils';
+import { downloadCertificate } from '@/utils/certificateUtils';
 import SocialLinks from './social/SocialLinks';
 import FloatingSocialBar from './social/FloatingSocialBar';
 import CertificatePreview from './social/CertificatePreview';
@@ -61,28 +62,37 @@ const SocialMediaSection = () => {
     });
   };
 
-  const downloadCertificate = () => {
-    const certificateElement = document.getElementById('social-certificate');
-    if (!certificateElement) return;
-    
+  const downloadSocialCertificate = () => {
     toast({
-      title: "Download started",
-      description: "Your certificate is being prepared for download",
+      title: "Preparing download",
+      description: "Your certificate is being prepared...",
     });
     
-    setTimeout(() => {
-      toast({
-        title: "Download complete",
-        description: "Certificate saved to your device",
-      });
-      
-      addActivityLog({
-        type: 'certificate_download',
-        user: userName,
-        timestamp: new Date().toISOString(),
-        details: { certificateType: 'Social Media Star' }
-      });
-    }, 1500);
+    downloadCertificate(
+      'social-certificate',
+      `Social_Media_Certificate_${userName.replace(/\s+/g, '_')}`,
+      (success) => {
+        if (success) {
+          toast({
+            title: "Download complete",
+            description: "Certificate saved to your device",
+          });
+          
+          addActivityLog({
+            type: 'certificate_download',
+            user: userName,
+            timestamp: new Date().toISOString(),
+            details: { certificateType: 'Social Media Star' }
+          });
+        } else {
+          toast({
+            title: "Download failed",
+            description: "There was an error downloading your certificate",
+            variant: "destructive",
+          });
+        }
+      }
+    );
   };
 
   return (
@@ -121,7 +131,7 @@ const SocialMediaSection = () => {
                     userName={userName}
                     selectedImage={selectedImage!}
                     onReset={() => setShowCertificate(false)}
-                    onDownload={downloadCertificate}
+                    onDownload={downloadSocialCertificate}
                   />
                 )}
               </CardContent>

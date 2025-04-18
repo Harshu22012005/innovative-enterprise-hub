@@ -22,6 +22,10 @@ const PhotoUploadForm = ({
 }: PhotoUploadFormProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <div>
       <p className="mb-4">Upload your team photo and get a mock "Social Media Star" certificate!</p>
@@ -62,14 +66,15 @@ const PhotoUploadForm = ({
             accept="image/*"
             onChange={onImageChange}
             className="hidden"
-            id="team-photo-upload"
             ref={fileInputRef}
           />
-          <label htmlFor="team-photo-upload">
-            <Button variant="outline" className="cursor-pointer">
-              Choose File
-            </Button>
-          </label>
+          <Button 
+            variant="outline" 
+            className="cursor-pointer"
+            onClick={handleButtonClick}
+          >
+            Choose File
+          </Button>
         </div>
       )}
       
