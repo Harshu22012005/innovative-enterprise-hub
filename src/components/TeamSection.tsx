@@ -1,13 +1,24 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Copy, Check, Phone, Mail, MessageCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { addActivityLog } from '@/utils/adminUtils';
 
 const TeamSection = () => {
   const { toast } = useToast();
   const [copySuccess, setCopySuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Log page visit when component mounts
+    addActivityLog({
+      type: 'page_visit',
+      user: 'Anonymous Visitor',
+      timestamp: new Date().toISOString(),
+      details: { page: 'Team Section' }
+    });
+  }, []);
 
   const copyToClipboard = (text: string, type: string) => {
     navigator.clipboard.writeText(text).then(() => {
@@ -124,14 +135,14 @@ const TeamSection = () => {
                   variant="outline" 
                   size="lg" 
                   className="flex items-center justify-center gap-2 w-full max-w-xs"
-                  onClick={() => copyToClipboard("ecell@meswadia.edu", "email")}
+                  onClick={() => copyToClipboard("ecellmeswcoe@gmail.com", "email")}
                 >
                   {copySuccess === "email" ? (
                     <Check size={18} />
                   ) : (
                     <Copy size={18} />
                   )}
-                  ecell@meswadia.edu
+                  ecellmeswcoe@gmail.com
                 </Button>
               </div>
             </CardContent>

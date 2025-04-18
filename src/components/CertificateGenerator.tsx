@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Download, Award } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { generateCertificateData, simulateDownload } from '@/utils/certificateUtils';
+import { addActivityLog } from '@/utils/adminUtils';
 
 const CertificateGenerator = () => {
   const { toast } = useToast();
@@ -33,6 +34,17 @@ const CertificateGenerator = () => {
     setCertificateData(data);
     setShowCertificate(true);
     
+    // Log the certificate generation for admin dashboard
+    addActivityLog({
+      type: 'certificate_generation',
+      user: name,
+      timestamp: new Date().toISOString(),
+      details: { 
+        certificateType: 'InnovateXpo Attendance',
+        serialNumber: data.serialNumber
+      }
+    });
+    
     toast({
       title: "Certificate Generated!",
       description: "Your InnovateXpo attendance certificate is ready",
@@ -55,6 +67,17 @@ const CertificateGenerator = () => {
           toast({
             title: "Download Complete",
             description: "Your certificate has been saved to your device",
+          });
+          
+          // Log the download activity
+          addActivityLog({
+            type: 'certificate_download',
+            user: name,
+            timestamp: new Date().toISOString(),
+            details: { 
+              certificateType: 'InnovateXpo Attendance',
+              serialNumber: certificateData?.serialNumber || ''
+            }
           });
         } else {
           toast({

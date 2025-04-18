@@ -1,21 +1,31 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Instagram, Linkedin, MessageCircle, Upload, Download, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { addActivityLog } from '@/utils/adminUtils';
 
 const SocialMediaSection = () => {
   const { toast } = useToast();
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [userName, setUserName] = useState('');
   const [showCertificate, setShowCertificate] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setSelectedImage(e.target?.result as string);
+        const result = e.target?.result as string;
+        setSelectedImage(result);
+        // Log the activity for admin dashboard
+        addActivityLog({
+          type: 'photo_upload',
+          user: userName || 'Anonymous User',
+          timestamp: new Date().toISOString(),
+          details: { fileName: fileInputRef.current?.files?.[0]?.name || 'Unknown file' }
+        });
       };
       reader.readAsDataURL(e.target.files[0]);
     }
@@ -24,6 +34,9 @@ const SocialMediaSection = () => {
   const clearImage = () => {
     setSelectedImage(null);
     setShowCertificate(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const generateCertificate = () => {
@@ -37,6 +50,15 @@ const SocialMediaSection = () => {
     }
     
     setShowCertificate(true);
+    
+    // Log the activity for admin dashboard
+    addActivityLog({
+      type: 'social_certificate',
+      user: userName,
+      timestamp: new Date().toISOString(),
+      details: { certificateType: 'Social Media Star' }
+    });
+    
     toast({
       title: "Congratulations! 🎉",
       description: "You're now in the running to be our next E-Cell influencer!",
@@ -58,6 +80,14 @@ const SocialMediaSection = () => {
       toast({
         title: "Download complete",
         description: "Certificate saved to your device",
+      });
+      
+      // Log the download activity
+      addActivityLog({
+        type: 'certificate_download',
+        user: userName,
+        timestamp: new Date().toISOString(),
+        details: { certificateType: 'Social Media Star' }
       });
     }, 1500);
   };
@@ -125,7 +155,7 @@ const SocialMediaSection = () => {
               <Card className="overflow-hidden transition-all hover:shadow-lg">
                 <CardContent className="p-0">
                   <a 
-                    href="https://chat.whatsapp.com/ecellmeswcoe" 
+                    href="https://chat.whatsapp.com/B9khcm1zUf6DcK8C2GKFur" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex items-center p-6 hover:bg-gray-50"
@@ -192,6 +222,7 @@ const SocialMediaSection = () => {
                           onChange={handleImageChange}
                           className="hidden"
                           id="team-photo-upload"
+                          ref={fileInputRef}
                         />
                         <label htmlFor="team-photo-upload">
                           <Button variant="outline" className="cursor-pointer">
@@ -283,7 +314,7 @@ const SocialMediaSection = () => {
           <Linkedin className="text-blue-700" size={24} />
         </a>
         <a 
-          href="https://chat.whatsapp.com/ecellmeswcoe" 
+          href="https://chat.whatsapp.com/B9khcm1zUf6DcK8C2GKFur" 
           target="_blank" 
           rel="noopener noreferrer"
           className="bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110"

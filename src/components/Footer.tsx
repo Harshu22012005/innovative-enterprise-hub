@@ -37,7 +37,7 @@ const Footer = () => {
                 <Linkedin size={20} />
               </a>
               <a 
-                href="https://chat.whatsapp.com/ecellmeswcoe" 
+                href="https://chat.whatsapp.com/B9khcm1zUf6DcK8C2GKFur" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-white transition-colors"
@@ -62,6 +62,9 @@ const Footer = () => {
               <li>
                 <a href="#social" className="text-gray-400 hover:text-white transition-colors">Social Media</a>
               </li>
+              <li>
+                <a href="/admin" className="text-gray-400 hover:text-white transition-colors">Admin</a>
+              </li>
             </ul>
           </div>
           
@@ -70,7 +73,7 @@ const Footer = () => {
             <ul className="space-y-4">
               <li className="flex items-start">
                 <Mail className="mr-2 text-gray-400 flex-shrink-0 mt-0.5" size={18} />
-                <span className="text-gray-400">ecell@meswadia.edu</span>
+                <span className="text-gray-400">ecellmeswcoe@gmail.com</span>
               </li>
               <li className="flex items-start">
                 <MapPin className="mr-2 text-gray-400 flex-shrink-0 mt-0.5" size={18} />
@@ -87,7 +90,7 @@ const Footer = () => {
               Be part of our 500+ innovators community and stay updated with the latest events.
             </p>
             <a 
-              href="https://chat.whatsapp.com/ecellmeswcoe" 
+              href="https://chat.whatsapp.com/B9khcm1zUf6DcK8C2GKFur" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
